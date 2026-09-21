@@ -1,0 +1,24 @@
+name: Build D2SteamFix
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Build Project
+        run: |
+          make.cmd configure
+          make.cmd build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: D2SteamFix-Build
+          path: build/
